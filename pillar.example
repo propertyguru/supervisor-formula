@@ -2,8 +2,10 @@
 # Example pillar configuration
 #
 supervisor:
+  legacy: False # Just to use the my-app-prog.conf program name (legacy: True, by default) or just my-app.conf (legacy: False)
   programs:
     my-app:
+      enabled: True # The program.conf can be removed with this variable
       autorestart: 'true'
       autostart: 'true'
       redirect_stderr: 'true'
