@@ -3,6 +3,10 @@
 [program:{{ program }}]
 {%- for key, value in values.items() -%}
 {%- if 'enabled' not in key %}
+{%- if 'env' in key %}
+{{ key }}={{ environment }}
+{%- else %}
 {{ key }}={{ value }}
+{%- endif -%}
 {%- endif -%}
 {% endfor -%}

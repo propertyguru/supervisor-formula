@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
+{% set environment = salt['pillar.get']('environment') -%}
+
 {% from "supervisor/map.jinja" import supervisor with context %}
 
 supervisor-config:
@@ -34,6 +36,7 @@ supervisor-program-{{ program }}:
     - defaults:
         program: {{ program }}
         values: {{ values }}
+        environment: {{ environment }}
     - watch_in:
       - service: supervisor.service
 {% elif 'enabled' in values and not values.enabled %}
