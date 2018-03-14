@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{% set environment = salt['pillar.get']('environment') -%}
+{% set environment = salt['pillar.get']('environment','dev') -%}
+
+{%- if environment == 'dev' -%}
+{% set devbox_name = salt['grains.get']('id') | replace('.guruestate.com','') | replace('dev-','') -%}
+{%- else -%}
+{% set devbox_name = '' -%}
+{%- endif -%}
 
 {% from "supervisor/map.jinja" import supervisor with context %}
 
@@ -37,6 +43,7 @@ supervisor-program-{{ program }}:
         program: {{ program }}
         values: {{ values }}
         environment: {{ environment }}
+        sub_env: {{ devbox_name }}
     - watch_in:
       - service: supervisor.service
 {% elif 'enabled' in values and not values.enabled %}
