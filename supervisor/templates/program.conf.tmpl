@@ -3,7 +3,7 @@
 [program:{{ program }}]
 {%- for key, value in values.items() -%}
 {%- if 'enabled' not in key %}
-{%- if 'environment' in key %}
+{%- if 'environment' in key and value is sameas true %}
 {{ key }}=PG_ENV="{{ environment }}",PG_SUBENV="{{ sub_env }}"
 {%- else %}
 {{ key }}={{ value }}
