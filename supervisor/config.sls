@@ -9,6 +9,12 @@
 {% set devbox_name = '' -%}
 {%- endif -%}
 
+# Hack to set env as prod. Remove this below 3 lines when we remove prod as environment variable
+{%- if environment == 'production' -%}
+{%- set environment = 'prod' -%}
+{%- endif -%}
+
+
 {% from "supervisor/map.jinja" import supervisor with context %}
 
 supervisor-config:
