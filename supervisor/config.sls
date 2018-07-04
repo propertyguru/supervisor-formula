@@ -3,8 +3,8 @@
 
 {% set environment = salt['pillar.get']('environment','dev') -%}
 
-{%- if environment == 'dev' -%}
-{% set devbox_name = salt['grains.get']('id') | replace('.guruestate.com','') | replace('dev-','') -%}
+{%- if environment in ['sandbox', 'dev'] -%}
+{% set devbox_name = salt['grains.get']('id') | replace('.guruestate.com','') | replace('dev-','')  | replace('sandbox-','') -%}
 {%- else -%}
 {% set devbox_name = '' -%}
 {%- endif -%}
